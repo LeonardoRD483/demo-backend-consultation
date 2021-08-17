@@ -1,36 +1,31 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.Client;
-import com.example.demo.model.Doctor;
-import com.example.demo.service.Implements.ClientServiceImpl;
-
+import com.example.demo.model.Hospital;
+import com.example.demo.service.Implements.HospitalServiceImpl;
 import net.minidev.json.JSONObject;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/client")
+@RequestMapping("/hospital")
 @CrossOrigin(origins = "*")
-public class ClientController {
+public class HospitalController {
 
-    @Autowired(required = true)
-    private ClientServiceImpl clientService;
 
+    @Autowired
+    private HospitalServiceImpl hospitalService;
 
     @GetMapping
     public Object getAllClient() {
         JSONObject obj = new JSONObject();
-
         try {
-            List<Client> list = (List<Client>) clientService.findAll();
+            List<Hospital> list = (List<Hospital>) hospitalService.findAll();
             obj.put("status", true);
             obj.put("message", "success");
             obj.put("data", list);
@@ -43,13 +38,13 @@ public class ClientController {
     }
 
     @PostMapping
-    public Object created(@RequestBody Client client) {
+    public Object created(@RequestBody Hospital hospital) {
         JSONObject obj = new JSONObject();
         try {
-            Client client1 = clientService.save(client);
+            Hospital hospital1 = hospitalService.save(hospital);
             obj.put("status", true);
             obj.put("message", "success");
-            obj.put("data", client1);
+            obj.put("data", hospital1);
         } catch (Exception e) {
             obj.put("status", false);
             obj.put("message", "error");
@@ -58,13 +53,13 @@ public class ClientController {
     }
 
     @GetMapping("/{id}")
-    public Object ById(@PathVariable(value = "id") int client_id) {
+    public Object ById(@PathVariable(value = "id") int hospital_id) {
         JSONObject obj = new JSONObject();
         try {
-            Optional<Client> client = clientService.findBy(client_id);
+            Optional<Hospital> hospital = hospitalService.findBy(hospital_id);
             obj.put("status", true);
             obj.put("message", "success");
-            obj.put("data", client);
+            obj.put("data", hospital);
         } catch (Exception e) {
             obj.put("status", false);
             obj.put("message", "error");
@@ -79,7 +74,6 @@ public class ClientController {
         JSONObject obj = new JSONObject();
         try {
 
-
             obj.put("status", true);
             obj.put("message", "success");
             obj.put("data", client);
@@ -93,7 +87,7 @@ public class ClientController {
 
     @DeleteMapping("/{id}")
     public Object DeleteTipoMedioUsuario(@PathVariable(value = "id") int doctor_id) {
-        clientService.delete(doctor_id);
+        hospitalService.delete(doctor_id);
         JSONObject obj = new JSONObject();
         obj.put("res", "success");
         return new ResponseEntity<>(obj, HttpStatus.OK);

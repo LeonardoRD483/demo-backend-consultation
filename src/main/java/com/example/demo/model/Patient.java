@@ -15,4 +15,17 @@ public class Patient implements Serializable {
 
     @ManyToOne
     Client client;
+
+
+    public Patient() {
+    }
+
+    public Patient(int id) {
+        this.id = id;
+    }
+
+    public Patient(int id, Client client) {
+        this.id = id;
+        this.client = client;
+    }
 }

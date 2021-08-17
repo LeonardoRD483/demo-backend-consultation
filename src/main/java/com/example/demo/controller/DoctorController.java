@@ -1,7 +1,9 @@
 package com.example.demo.controller;
 
+import com.example.demo.model.Client;
 import com.example.demo.model.Doctor;
 import com.example.demo.service.Implements.DoctorServiceImpl;
+import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,7 +16,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/doctor")
 @CrossOrigin(origins = "*")
-public class DoctorController  {
+public class DoctorController {
 
 
     @Autowired(required = true)
@@ -25,15 +27,15 @@ public class DoctorController  {
     public Object getAllClient() {
         JSONObject obj = new JSONObject();
 
-        try {
-            List<Doctor> list = (List<Doctor>) doctorService.findAll();
-            obj.put("status", true);
-            obj.put("message", "success");
-            obj.put("data", list);
-        } catch (Exception e) {
-            obj.put("status", false);
-            obj.put("message", "error");
-        }
+
+        List<JSONObject> list = (List<JSONObject>) doctorService.findAll();
+        System.out.println("entraaaaaaaaaaaaaaa aqui");
+
+        System.out.println(list);
+        obj.put("status", true);
+        obj.put("message", "success");
+        obj.put("data", list);
+
         return new ResponseEntity<>(obj, HttpStatus.OK);
 
     }
@@ -41,6 +43,7 @@ public class DoctorController  {
     @PostMapping
     public Object created(@RequestBody Doctor doctor) {
         JSONObject obj = new JSONObject();
+
         try {
             Doctor doctor1 = doctorService.save(doctor);
             obj.put("status", true);
@@ -68,5 +71,14 @@ public class DoctorController  {
         return new ResponseEntity<>(obj, HttpStatus.OK);
 
     }
+
+    @DeleteMapping("/{id}")
+    public Object Delete(@PathVariable(value = "id") int doctor_id) {
+        doctorService.delete(doctor_id);
+        JSONObject obj = new JSONObject();
+        obj.put("res", "success");
+        return new ResponseEntity<>(obj, HttpStatus.OK);
+    }
+
 
 }

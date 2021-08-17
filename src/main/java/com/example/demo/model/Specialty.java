@@ -15,6 +15,4 @@ public class Specialty implements Serializable {
 
     String name;
 
-    @ManyToOne
-    Doctor doctor;
 }

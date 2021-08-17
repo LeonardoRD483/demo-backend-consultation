@@ -68,5 +68,13 @@ public class ConsultationController {
 
     }
 
+    @DeleteMapping("/{id}")
+    public Object Delete(@PathVariable(value = "id") int doctor_id) {
+        consultationService.delete(doctor_id);
+        JSONObject obj = new JSONObject();
+        obj.put("res", "success");
+        return new ResponseEntity<>(obj, HttpStatus.OK);
+    }
+
 
 }

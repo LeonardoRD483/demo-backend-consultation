@@ -15,10 +15,21 @@ public class Consultation implements Serializable {
     int id;
 
     String description;
-    String date;
 
     @ManyToOne
     Patient patient;
 
+    public Consultation() {
+    }
 
+    public Consultation(int id) {
+        this.id = id;
+    }
+
+
+    public Consultation(int id, String description, Patient patient) {
+        this.id = id;
+        this.description = description;
+        this.patient = patient;
+    }
 }

@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.model.Patient;
 import com.example.demo.service.Implements.PatientServiceImpl;
+import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,7 +26,7 @@ public class PatientController {
         JSONObject obj = new JSONObject();
 
         try {
-            List<Patient> list = (List<Patient>) patientService.findAll();
+            List<JSONObject> list = (List<JSONObject>) patientService.findAll();
             obj.put("status", true);
             obj.put("message", "success");
             obj.put("data", list);
@@ -67,6 +68,15 @@ public class PatientController {
         return new ResponseEntity<>(obj, HttpStatus.OK);
 
     }
+
+    @DeleteMapping("/{id}")
+    public Object Delete(@PathVariable(value = "id") int doctor_id) {
+        patientService.delete(doctor_id);
+        JSONObject obj = new JSONObject();
+        obj.put("res", "success");
+        return new ResponseEntity<>(obj, HttpStatus.OK);
+    }
+
 
 }
 

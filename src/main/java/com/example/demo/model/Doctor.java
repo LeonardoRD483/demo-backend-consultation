@@ -15,4 +15,11 @@ public class Doctor implements Serializable {
 
     @ManyToOne
     Client client;
+
+    public Doctor() {
+    }
+
+    public Doctor(int id) {
+        this.id = id;
+    }
 }

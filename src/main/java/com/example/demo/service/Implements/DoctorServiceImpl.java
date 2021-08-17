@@ -1,8 +1,11 @@
 package com.example.demo.service.Implements;
 
+import com.example.demo.model.Client;
 import com.example.demo.model.Doctor;
 import com.example.demo.repository.DoctorRepository;
 import com.example.demo.service.DoctorService;
+import net.minidev.json.JSONArray;
+import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,8 +20,8 @@ public class DoctorServiceImpl implements DoctorService {
 
     @Override
     @Transactional(readOnly = true)
-    public Iterable<Doctor> findAll() {
-        return doctorRepository.findAll();
+    public Iterable<JSONObject> findAll() {
+        return doctorRepository.client_and_doctorList();
     }
 
     @Override

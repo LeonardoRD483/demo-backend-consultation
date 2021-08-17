@@ -70,4 +70,12 @@ public class SpecialtyController {
 
     }
 
+     @DeleteMapping("/{id}")
+    public Object Delete(@PathVariable(value = "id") int doctor_id) {
+        specialtyService.delete(doctor_id);
+        JSONObject obj = new JSONObject();
+        obj.put("res", "success");
+        return new ResponseEntity<>(obj, HttpStatus.OK);
+    }
+
 }
